@@ -31,10 +31,11 @@ const register =  async (req: Request, res: Response) => {
     }
 
     try {
+      var salt = await bcrypt.genSaltSync(10);
       const addUser = await User.create({
         email,
-        password: bcrypt.hashSync(password, 11),
-        salt: "something",
+        password: bcrypt.hashSync(password, salt),
+        salt: salt,
       });
 
       return res.status(200).json({
