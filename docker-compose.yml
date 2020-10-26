@@ -1,0 +1,30 @@
+version: "3.4"
+
+services:
+  dadapp:
+    container_name: dadappsrc
+    image: dadapp
+    restart: always
+    build: .
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: mysql://root:root@database:3306/db
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app/
+      - /app/node_modules
+
+  database:
+    container_name: mysqldb
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"

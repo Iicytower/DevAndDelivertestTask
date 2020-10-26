@@ -1,0 +1,39 @@
+{
+  "name": "localhosttesttask",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "start": "nodemon dist/server.js",
+    "tsc": "tsc server.ts --allowSyntheticDefaultImports --outDir dist -w",
+    "build": "tsc server.ts --target es6 --module commonjs --allowSyntheticDefaultImports --skipLibCheck --experimentalDecorators --esModuleInterop --outDir dist -w",
+    "dev": "ts-node-dev server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iicytower/LocalhostTestTask.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "ts-node-dev": "^1.0.0-pre.58"
+  },
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/body-parser": "^1.19.0",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.7",
+    "@types/node": "^14.6.0",
+    "@types/sequelize": "^4.28.9",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5",
+    "typescript": "^3.9.7"
+  }
+}
