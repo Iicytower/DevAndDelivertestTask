@@ -20,6 +20,7 @@ const connection = new Sequelize(
 export const { models } = connection;
 
 UserModel(connection)
+
 //assosiations
 
 export const initDbConnection = async () => {
@@ -35,5 +36,5 @@ export const initDbConnection = async () => {
         throw error;
     }
 };
-  initDbConnection();
-export default { models,  initDbConnection };
+initDbConnection();
+export default { models, initDbConnection };

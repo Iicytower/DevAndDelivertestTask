@@ -1,6 +1,6 @@
 import sequelize from 'sequelize';
 
-const { STRING, UUID, UUIDV4, } = sequelize.DataTypes;
+const { STRING, UUID, UUIDV4, INTEGER, } = sequelize.DataTypes;
 
 export default function (sequelize: any) {
     sequelize.define('User', {
@@ -14,7 +14,6 @@ export default function (sequelize: any) {
             type: STRING,
             allownull: false,
         },
-
         password: {
             type: STRING,
             allownull: false,
@@ -23,7 +22,10 @@ export default function (sequelize: any) {
             type: STRING,
             allownull: false,
         },
-        
+        characterSW: {
+            type: INTEGER,
+            allownull: false,
+        }
     }
     )
 };
