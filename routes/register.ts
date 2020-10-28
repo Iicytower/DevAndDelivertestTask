@@ -11,7 +11,7 @@ router.post(
     "/register",
     bodyParser.json(),
     [
-        check("email").isEmail(),
+        check("email").isEmail().trim(),
         check("password").isString()
     ],
     validator(),

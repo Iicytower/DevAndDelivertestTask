@@ -1,7 +1,7 @@
 import login from "../controllers/login";
 
 import { Router } from "express";
-import * as bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 import validator from "../middlewares/validator";
 import { check } from "express-validator";
 
@@ -14,7 +14,7 @@ router.post(
         check("email").isEmail(),
         check("password").isString()
     ],
-    validator(),
+    validator(), 
     login);
 
 export default router;

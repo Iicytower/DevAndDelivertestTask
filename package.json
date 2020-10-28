@@ -1,5 +1,5 @@
 {
-  "name": "localhosttesttask",
+  "name": "devanddelivertesttask",
   "version": "1.0.0",
   "description": "",
   "main": "server.ts",
@@ -8,32 +8,45 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Iicytower/LocalhostTestTask.git"
+    "url": "git+https://github.com/Iicytower/DevAndDelivertestTask"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "dotenv": "^8.2.0",
-    "ts-node-dev": "^1.0.0-pre.58",
-    "typescript": "^3.9.7",
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.0",
     "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.8",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.7",
+    "@types/express-session": "^1.17.0",
     "@types/express-validator": "^3.0.0",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^14.6.0",
     "@types/node-fetch": "^2.5.7",
-    "@types/sequelize": "^4.28.9"
+    "@types/passport": "^1.0.4",
+    "@types/sequelize": "^4.28.9",
+    "@types/uuid": "^8.3.0",
+    "@types/passport-local": "^1.0.33",
+    "@types/session-file-store": "^1.2.1",
+    "dotenv": "^8.2.0",
+    "ts-node-dev": "^1.0.0-pre.58",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
     "mysql2": "^2.2.5",
     "node-fetch": "^2.6.1",
-    "sequelize": "^6.3.5"
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.3.5",
+    "session-file-store": "^1.5.0",
+    "uuid": "^8.3.1"
   }
 }

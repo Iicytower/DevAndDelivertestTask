@@ -1,10 +1,13 @@
 import { Sequelize } from "sequelize";
 import UserModel from "./models/user";
 
+
+// TODO this should be in .env file
 const DATABASE_NAME = 'db';
 const DATABASE_USERNAME = 'root';
 const DATABASE_PASSWORD = 'root';
 const DATABASE_HOST = 'database';
+/////////////
 
 const connection = new Sequelize(
     DATABASE_NAME,

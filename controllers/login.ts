@@ -1,44 +1,59 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import database from "../database/database";
 const { User } = database.models;
 import bcrypt from "bcryptjs";
+import passport from "passport";
 
-const login = async (req: Request, res: Response) => {
+import passportLocal from 'passport-local';
+const LocalStrategy = passportLocal.Strategy;
+
+const login = async (req: Request, res: Response, next: NextFunction) => {
 
     const { email, password } = req.body;
 
     try {
+        passport.use(new LocalStrategy(
+            { usernameField: 'email' },
+            async (email, password, done) => {
+                const foundUser = await User.findOne({
+                    where: { email },
+                    attributes: ["email", "password"],
+                });
 
-        const foundUser = await User.findOne({
-            where: { email },
-            attributes: ["UserID", "email", "password", "salt", "characterSW"],
-          });
-        //   console.log(findUser?.getDataValue);
+                if (!foundUser) {
+                    return res.status(200).json({
+                        status: `failure`,
+                        msg: `failed login user with email ${email} does not exist`,
+                    });
+                }
+                const loggedUser = {
+                    email: foundUser.getDataValue("email"),
+                    password: foundUser.getDataValue("password"),
+                }
 
-        if(!foundUser){
-            return res.status(200).json({
-                status: `failure`,
-                msg: `failed login user with email ${email} does not exist`,
-              });
-        }else{
-            const loggedUser = {
-                UserID: foundUser.getDataValue("UserID"),
-                email: foundUser.getDataValue("email"),
-                password: foundUser.getDataValue("password"),
-                salt: foundUser.getDataValue("salt"),
-                characterSW: foundUser.getDataValue("characterSW"),
+                if (bcrypt.compareSync(password, loggedUser.password)) {
+                    return done(null, loggedUser)
+                } else {
+                    return res.status(200).json({
+                        status: `failure`,
+                        msg: `wrong email or password`,
+                    });
+                }
             }
-            
-            // const loggedUser = foundUser.dataValue;
-            // console.log(foundUser);
-            console.log(loggedUser);
-        }
+        ));
+        passport.serializeUser((loggedUser: any, done) => {
+            done(null, loggedUser.email);
+        });
 
+        await passport.authenticate('local', (err, user, info) => {
+            req.login(user, (err) => {
+                return res.status(200).json({
+                    status: `succes`,
+                    msg: `success login user with email ${email}`,
+                });
+            })
+        })(req, res, next);
 
-        return res.status(200).json({
-            status: `succes`,
-            msg: `success login user with email ${email}`,
-          });
     } catch (err) {
         console.log(err);
         return res.status(500).json({

@@ -25,20 +25,20 @@ const register = async (req: Request, res: Response) => {
     console.log(err);
     return res.status(500).json({
       status: `failure`,
-      msg: "somthing goes wrong with register"
+      msg: "Somthing goes wrong with register"
     });
   }
 
   try {
 
-    const charId: number = Math.floor(Math.random() * 83) + 1;
+    const characterSW: number = Math.floor(Math.random() * 83) + 1;
 
-    const salt = bcrypt.genSaltSync(10);
+    const salt: string = bcrypt.genSaltSync(10);
     const addUser = await User.create({
       email,
       password: bcrypt.hashSync(password, salt),
-      salt: salt,
-      characterSW: charId,
+      salt,
+      characterSW,
     });
 
     return res.status(200).json({
