@@ -8,7 +8,7 @@ import { check } from "express-validator";
 const router = Router();
 
 router.post(
-    "/register",
+    "/",
     bodyParser.json(),
     [
         check("email").isEmail().trim(),

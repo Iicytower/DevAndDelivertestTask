@@ -12,6 +12,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
     try {
+
+        let loggedUser = {
+            email: '',
+            password: '',
+        };
         passport.use(new LocalStrategy(
             { usernameField: 'email' },
             async (email, password, done) => {
@@ -26,10 +31,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                         msg: `failed login user with email ${email} does not exist`,
                     });
                 }
-                const loggedUser = {
-                    email: foundUser.getDataValue("email"),
-                    password: foundUser.getDataValue("password"),
-                }
+
+                loggedUser.email = foundUser.getDataValue("email");
+                loggedUser.password = foundUser.getDataValue("password");
+
 
                 if (bcrypt.compareSync(password, loggedUser.password)) {
                     return done(null, loggedUser)
@@ -43,6 +48,13 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         ));
         passport.serializeUser((loggedUser: any, done) => {
             done(null, loggedUser.email);
+        });
+
+        passport.deserializeUser((email, done) => {
+            console.log('Inside deserializeUser callback')
+            console.log(`The user email passport saved in the session file store is: ${email}`)
+            const user = loggedUser.email === email ? loggedUser : false;
+            done(null, user);
         });
 
         await passport.authenticate('local', (err, user, info) => {

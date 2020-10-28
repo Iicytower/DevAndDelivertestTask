@@ -14,6 +14,7 @@ const app: express.Application = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -23,7 +24,7 @@ app.use(session({
     },
     store: new FileStore(),
     secret: 'keyboard cat', //TODO process.env.SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: true
 }))
 
