@@ -12,12 +12,10 @@ router.use("/register", register);
 router.use("/login", login);
 
 router.use("/authrequired", (req, res, next) => {
-    console.log(`User authenticated? ${req.isAuthenticated()}`);
     if (req.isAuthenticated()) {
-        res.send('you hit the authentication endpoint\n')
         next();
-    } else {
-        res.redirect('/')
+    }else{
+        return res.send('failed to auth') 
     }
 }, authrequired);
 

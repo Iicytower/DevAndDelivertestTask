@@ -12,17 +12,18 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
     try {
-
         let loggedUser = {
             email: '',
             password: '',
+            characterSW: 100,
         };
         passport.use(new LocalStrategy(
+            
             { usernameField: 'email' },
             async (email, password, done) => {
                 const foundUser = await User.findOne({
                     where: { email },
-                    attributes: ["email", "password"],
+                    attributes: ["email", "password", "characterSW"],
                 });
 
                 if (!foundUser) {
@@ -34,7 +35,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
                 loggedUser.email = foundUser.getDataValue("email");
                 loggedUser.password = foundUser.getDataValue("password");
-
+                loggedUser.characterSW = foundUser.getDataValue("characterSW");
 
                 if (bcrypt.compareSync(password, loggedUser.password)) {
                     return done(null, loggedUser)
@@ -51,13 +52,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         });
 
         passport.deserializeUser((email, done) => {
-            console.log('Inside deserializeUser callback')
-            console.log(`The user email passport saved in the session file store is: ${email}`)
             const user = loggedUser.email === email ? loggedUser : false;
             done(null, user);
         });
 
-        await passport.authenticate('local', (err, user, info) => {
+        await passport.authenticate('local', (err, user) => {
             req.login(user, (err) => {
                 return res.status(200).json({
                     status: `succes`,
@@ -65,7 +64,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                 });
             })
         })(req, res, next);
-
     } catch (err) {
         console.log(err);
         return res.status(500).json({

@@ -15,9 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(session({
     genid: (req) => {
         return uuidv4()
@@ -26,8 +23,10 @@ app.use(session({
     secret: 'keyboard cat', //TODO process.env.SECRET,
     resave: false,
     saveUninitialized: true
-}))
+}));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
 import indexRouter from "./routes/index";
 app.use("/", indexRouter);
