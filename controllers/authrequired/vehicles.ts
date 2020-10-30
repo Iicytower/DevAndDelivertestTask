@@ -1,23 +1,24 @@
-import { Request, response, Response, } from 'express';
+import { Request, Response, } from 'express';
 import fetch from 'node-fetch';
+
 import { UserReq } from '../../helpers/types';
 import getUserHeroData from '../../helpers/heroInfo'
 
-const spaces = async (req: Request, res: Response) => {
+const vehicles = async (req: Request, res: Response) => {
 
     const user: UserReq = (req.user !== undefined) ? req.user : 'very secret string';
 
     if (user === 'very secret string') return res.status(500).json({
         status: 'failure',
-        msg: 'somthing goes wrong with /authrequired/spaces endpoint',
+        msg: 'somthing goes wrong with /authrequired/vehicles endpoint',
     });
 
     try {
         const heroInfo = await getUserHeroData(user);
 
         let acc: string[] = [];
-        for(let i = 0; i < heroInfo.species.length; i++) {
-            const el: string = heroInfo.species[i];
+        for(let i = 0; i < heroInfo.vehicles.length; i++) {
+            const el: string = heroInfo.vehicles[i];
 
             await fetch(el)
             .then(res => res.json())
@@ -32,14 +33,13 @@ const spaces = async (req: Request, res: Response) => {
             status: 'succes',
             spaces: acc,
         });
-
     } catch (err) {
         console.log(err);
         return res.status(500).json({
             status: `failure`,
-            msg: "somthing goes wrong with spaces"
+            msg: "somthing goes wrong with vehicles"
         });
     }
 }
 
-export default spaces;
+export default vehicles;
