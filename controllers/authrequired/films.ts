@@ -27,7 +27,6 @@ const films = async (req: Request, res: Response) => {
             acc.push(films[parseInt(cur.charAt(27)) - 1]);
             return acc
         }, []);
-        console.log(count);
         return res.status(200).json({
             status: 'succes',
             films: count,

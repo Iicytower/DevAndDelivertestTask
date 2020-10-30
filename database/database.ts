@@ -7,6 +7,7 @@ const DATABASE_NAME = 'db';
 const DATABASE_USERNAME = 'root';
 const DATABASE_PASSWORD = 'root';
 const DATABASE_HOST = 'database';
+// {DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST} = process.env;
 /////////////
 
 const connection = new Sequelize(
@@ -20,13 +21,11 @@ const connection = new Sequelize(
     }
 );
 
-export const { models } = connection;
+const { models } = connection;
 
 UserModel(connection)
 
-//assosiations
-
-export const initDbConnection = async () => {
+const initDbConnection = async () => {
     try {
         await connection.sync({ alter: true });
         console.log("The database connection has been successfully established!");

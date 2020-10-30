@@ -15,10 +15,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         let loggedUser = {
             email: '',
             password: '',
-            characterSW: 100,
+            characterSW: -1,
         };
+        
         passport.use(new LocalStrategy(
-            
             { usernameField: 'email' },
             async (email, password, done) => {
                 const foundUser = await User.findOne({
@@ -47,6 +47,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                 }
             }
         ));
+        
         passport.serializeUser((loggedUser: any, done) => {
             done(null, loggedUser.email);
         });

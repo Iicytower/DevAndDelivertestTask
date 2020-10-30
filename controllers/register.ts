@@ -49,6 +49,7 @@ const register = async (req: Request, res: Response) => {
     console.log(err);
     return res.status(500).json({
       status: `failure`,
+      msg: "Somthing goes wrong with register",
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Request, response, Response, } from 'express';
+import { Request, Response, } from 'express';
 import fetch from 'node-fetch';
 import { UserReq } from '../../helpers/types';
 import getUserHeroData from '../../helpers/heroInfo'
@@ -37,16 +37,12 @@ const spaces = async (req: Request, res: Response) => {
             })
             .catch(err => console.log(err));
 
-
         console.log(acc);
         return res.status(200).json({
             status: 'succes',
             planets: acc,
         });
 
-
-
-        // https://swapi.dev/api/planets/schema?residents[%22http://swapi.dev/api/people/1/%22]/
     } catch (err) {
         console.log(err);
         return res.status(500).json({

@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 import { UserReq } from './types';
 
-
 export default async(user: UserReq) => {
 
     const { characterSW } = user;
@@ -13,5 +12,4 @@ export default async(user: UserReq) => {
         .catch(err => console.log(err));
     
     return charInfo;
-
 }

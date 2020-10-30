@@ -4,5 +4,4 @@ export type UserReq = {
     password?: string,
     characterSW?: number,
     salt?: string,
-    
 };

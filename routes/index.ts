@@ -11,12 +11,8 @@ router.get("/", (req,res)=> res.end('You hit the home page'));
 router.use("/register", register);
 router.use("/login", login);
 
-router.use("/authrequired", (req, res, next) => {
-    if (req.isAuthenticated()) {
-        next();
-    }else{
-        return res.send('failed to auth') 
-    }
-}, authrequired);
+router.use("/authrequired", 
+(req, res, next) => (req.isAuthenticated()) ? next() : res.send('failed to auth'),
+authrequired);
 
 export default router;

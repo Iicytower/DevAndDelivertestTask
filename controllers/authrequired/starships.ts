@@ -10,20 +10,20 @@ const vehicles = async (req: Request, res: Response) => {
 
     if (user === 'very secret string') return res.status(500).json({
         status: 'failure',
-        msg: 'somthing goes wrong with /authrequired/vehicles endpoint',
+        msg: 'somthing goes wrong with /authrequired/starships endpoint',
     });
 
     try {
         const heroInfo = await getUserHeroData(user);
 
-        let acc: string[] = [];
+        let count: string[] = [];
         for(let i = 0; i < heroInfo.starships.length; i++) {
             const el: string = heroInfo.starships[i];
 
             await fetch(el)
             .then(res => res.json())
             .then(data => {
-                acc.push(data.name);
+                count.push(data.name);
                 return data.name
             })
             .catch(err => console.log(err));
@@ -31,13 +31,13 @@ const vehicles = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             status: 'succes',
-            spaces: acc,
+            spaces: count,
         });
     } catch (err) {
         console.log(err);
         return res.status(500).json({
             status: `failure`,
-            msg: "somthing goes wrong with vehicles"
+            msg: "somthing goes wrong with starships"
         });
     }
 }
