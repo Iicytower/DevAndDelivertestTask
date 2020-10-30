@@ -1,10 +1,10 @@
-import films from "../../controllers/authrequired/films";
+import spaces from "../../controllers/authrequired/spaces";
 import { Router } from "express";
 
 const router = Router();
 
 router.get(
     "/",
-    films);
+    spaces);
 
 export default router;
