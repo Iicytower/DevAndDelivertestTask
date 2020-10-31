@@ -15,14 +15,14 @@ const spaces = async (req: Request, res: Response) => {
     try {
         const heroInfo = await getUserHeroData(user);
 
-        let acc: string[] = [];
+        let count: string[] = [];
         for(let i = 0; i < heroInfo.species.length; i++) {
             const el: string = heroInfo.species[i];
 
             await fetch(el)
             .then(res => res.json())
             .then(data => {
-                acc.push(data.name);
+                count.push(data.name);
                 return data.name
             })
             .catch(err => console.log(err));
@@ -30,11 +30,11 @@ const spaces = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             status: 'succes',
-            spaces: acc,
+            spaces: count,
         });
 
     } catch (err) {
-        console.log(err);
+        console.error(err);
         return res.status(500).json({
             status: `failure`,
             msg: "somthing goes wrong with spaces"

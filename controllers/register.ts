@@ -22,7 +22,7 @@ const register = async (req: Request, res: Response) => {
     }
 
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return res.status(500).json({
       status: `failure`,
       msg: "Somthing goes wrong with register"
@@ -46,7 +46,7 @@ const register = async (req: Request, res: Response) => {
       msg: `success register user with email ${email}`,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return res.status(500).json({
       status: `failure`,
       msg: "Somthing goes wrong with register",

@@ -9,6 +9,15 @@ const LocalStrategy = passportLocal.Strategy;
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
 
+        if (!!req.user) {
+            return res
+                .status(200)
+                .json({
+                    status: 'failure',
+                    mgs: "You are already logged in."
+                })
+        }
+        
     const { email, password } = req.body;
 
     try {
@@ -17,7 +26,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             password: '',
             characterSW: -1,
         };
-        
+
         passport.use(new LocalStrategy(
             { usernameField: 'email' },
             async (email, password, done) => {
@@ -47,7 +56,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                 }
             }
         ));
-        
+
         passport.serializeUser((loggedUser: any, done) => {
             done(null, loggedUser.email);
         });
@@ -66,7 +75,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             })
         })(req, res, next);
     } catch (err) {
-        console.log(err);
+        console.error(err);
         return res.status(500).json({
             status: `failure`,
             msg: "somthing goes wrong with login"

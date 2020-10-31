@@ -15,7 +15,7 @@ const spaces = async (req: Request, res: Response) => {
     try {
         const heroInfo = await getUserHeroData(user);
 
-        let acc: string[] = [];
+        let count: string[] = [];
 
         await fetch(`https://swapi.dev/api/planets/`)
             .then(res => res.json())
@@ -28,7 +28,7 @@ const spaces = async (req: Request, res: Response) => {
                         const element = el.residents[index];
 
                         if (element === heroInfo.url) {
-                            acc.push(el.name)
+                            count.push(el.name)
                         }
                     }
                 }
@@ -37,14 +37,13 @@ const spaces = async (req: Request, res: Response) => {
             })
             .catch(err => console.log(err));
 
-        console.log(acc);
         return res.status(200).json({
             status: 'succes',
-            planets: acc,
+            planets: count,
         });
 
     } catch (err) {
-        console.log(err);
+        console.error(err);
         return res.status(500).json({
             status: `failure`,
             msg: "somthing goes wrong with planets"

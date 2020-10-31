@@ -33,7 +33,7 @@ const films = async (req: Request, res: Response) => {
         });
 
     } catch (err) {
-        console.log(err);
+        console.error(err);
         return res.status(500).json({
             status: `failure`,
             msg: "somthing goes wrong with films"
