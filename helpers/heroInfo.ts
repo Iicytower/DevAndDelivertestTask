@@ -9,7 +9,7 @@ export default async(user: UserReq) => {
     const charInfo = await fetch(baseURL)
         .then(res => res.json())
         .then(data => data)
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     
     return charInfo;
 }

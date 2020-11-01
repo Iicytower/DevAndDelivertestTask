@@ -2,22 +2,21 @@ import { NextFunction, Request, Response } from 'express';
 import database from "../database/database";
 const { User } = database.models;
 import bcrypt from "bcryptjs";
-import passport from "passport";
+import getUserHeroData from '../helpers/heroInfo';
 
+import passport from "passport";
 import passportLocal from 'passport-local';
 const LocalStrategy = passportLocal.Strategy;
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
 
-        if (!!req.user) {
-            return res
-                .status(200)
-                .json({
-                    status: 'failure',
-                    mgs: "You are already logged in."
-                })
-        }
-        
+    if (!!req.user) {
+        return res.status(200).json({
+            status: 'failure',
+            mgs: "You are already logged in."
+        })
+    }
+
     const { email, password } = req.body;
 
     try {
@@ -36,6 +35,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                 });
 
                 if (!foundUser) {
+                    delete req.session;
                     return res.status(200).json({
                         status: `failure`,
                         msg: `failed login user with email ${email} does not exist`,
@@ -67,10 +67,16 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         });
 
         await passport.authenticate('local', (err, user) => {
-            req.login(user, (err) => {
+            req.login(user, async (err) => {
+
+                if (err) return console.error(err);
+
+
+                const heroInfo = await getUserHeroData(user);
+
                 return res.status(200).json({
                     status: `succes`,
-                    msg: `success login user with email ${email}`,
+                    msg: `success login user with email ${email}. Welcome ${heroInfo.name}`,
                 });
             })
         })(req, res, next);

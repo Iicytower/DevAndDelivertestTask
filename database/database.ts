@@ -31,7 +31,7 @@ const initDbConnection = async () => {
         console.log("The database connection has been successfully established!");
         console.log("----------------------");
     } catch (error) {
-        console.log({
+        console.error({
             error,
             message: "There was a problem connecting to the database!",
         });

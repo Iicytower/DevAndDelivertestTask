@@ -20,11 +20,13 @@ app.use(session({
     genid: (req) => {
         return uuidv4()
     },
-    store: new FileStore(),
+    store: new FileStore({
+        ttl: 1000 * 60 * 60 * 24,
+    }),
     secret: 'keyboard cat', //TODO process.env.SECRET,
     resave: true,
-    saveUninitialized: true,
-    rolling: true,
+    saveUninitialized: false,
+    rolling: false,
     cookie: {
         secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 60 * 24,

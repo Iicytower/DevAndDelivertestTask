@@ -35,7 +35,7 @@ const spaces = async (req: Request, res: Response) => {
                 return data;
 
             })
-            .catch(err => console.log(err));
+            .catch(err => console.error(err));
 
         return res.status(200).json({
             status: 'succes',

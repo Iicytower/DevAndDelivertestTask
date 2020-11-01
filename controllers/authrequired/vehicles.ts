@@ -26,7 +26,7 @@ const vehicles = async (req: Request, res: Response) => {
                 count.push(data.name);
                 return data.name
             })
-            .catch(err => console.log(err));
+            .catch(err => console.error(err));
         }
 
         return res.status(200).json({

@@ -6,13 +6,14 @@ import validator from "../middlewares/validator";
 import { check } from "express-validator";
 
 const router = Router();
+const regexpPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[\!\@\#\$\%\^\&\*\(\)])(?=.*[A-Z])(?!.*\s).{8,}$/g;
 
 router.post(
     "/",
     bodyParser.json(),
     [
         check("email").isEmail().trim(),
-        check("password").isString()
+        check("password").isString().matches(regexpPassword),
     ],
     validator(),
     register);

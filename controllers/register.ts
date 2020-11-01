@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import database from "../database/database";
 const { User } = database.models;
 import bcrypt from "bcryptjs";
+import { UserReq } from '../helpers/types';
+import getUserHeroData from '../helpers/heroInfo';
 
 const register = async (req: Request, res: Response) => {
 
@@ -32,18 +34,23 @@ const register = async (req: Request, res: Response) => {
   try {
 
     const characterSW: number = Math.floor(Math.random() * 83) + 1;
-
     const salt: string = bcrypt.genSaltSync(10);
-    const addUser = await User.create({
+
+    const user: UserReq = {
       email,
       password: bcrypt.hashSync(password, salt),
       salt,
       characterSW,
-    });
+    };
+
+    const heroInfo = await getUserHeroData(user);
+
+    const addUser = await User.create(user);
 
     return res.status(200).json({
       status: `succes`,
-      msg: `success register user with email ${email}`,
+      msg: `success register user with email ${email}. Welcome ${heroInfo.name}`,
+
     });
   } catch (err) {
     console.error(err);
