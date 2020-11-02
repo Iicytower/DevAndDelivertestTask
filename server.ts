@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv"; dotenv.config();
+import dotenv from "dotenv"; dotenv.config();
 
 import express from "express";
 import bodyParser from "body-parser";
@@ -23,12 +23,12 @@ app.use(session({
     store: new FileStore({
         ttl: 1000 * 60 * 60 * 24,
     }),
-    secret: 'keyboard cat', //TODO process.env.SECRET,
+    secret: String(process.env.SECRET),
     resave: true,
     saveUninitialized: false,
     rolling: false,
     cookie: {
-        secure: process.env.NODE_ENV === "production",
+        secure: String(process.env.NODE_ENV) === "production",
         maxAge: 1000 * 60 * 60 * 24,
         
     }
@@ -51,8 +51,7 @@ try {
 } catch (err) {
     console.error(err);
 }
-
-const PORT: number = (!!process.env.PORT) ? parseInt(process.env.PORT) : 3000;
+const PORT: number = (!!process.env.PORT) ? parseInt(process.env.PORT) : 3002;
 
 app.listen(PORT, (err) => {
     if (err) {
