@@ -15,7 +15,7 @@ const spaces = async (req: Request, res: Response) => {
 
         if (myCache.has("planetsKey")) {
             return res.status(200).json({
-                status: 'success,
+                status: 'success',
                 spaces: await myCache.get("planetsKey"),
             });
         }
@@ -46,7 +46,7 @@ const spaces = async (req: Request, res: Response) => {
 
         myCache.set("planetsKey", count, 86400);
         return res.status(200).json({
-            status: 'success,
+            status: 'success',
             planets: count,
         });
 
