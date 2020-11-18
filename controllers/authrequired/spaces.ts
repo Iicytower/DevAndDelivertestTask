@@ -5,11 +5,9 @@ import getUserHeroData from '../../helpers/heroInfo'
 
 const spaces = async (req: Request, res: Response) => {
 
-    const user: UserReq = (req.user !== undefined) ? req.user : 'very secret string';
-
-    if (user === 'very secret string') return res.status(500).json({
-        status: 'failure',
-        msg: 'somthing goes wrong with /authrequired/spaces endpoint',
+    const user: UserReq = (req.user !== undefined) ? req.user : res.status(500).json({
+        status: "failure",
+        msg: "there is a problem with user"
     });
 
     try {

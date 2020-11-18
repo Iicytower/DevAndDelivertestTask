@@ -1,14 +1,10 @@
 import { Sequelize } from "sequelize";
 import UserModel from "./models/user";
 
-
-// TODO this should be in .env file
-const DATABASE_NAME = 'db';
-const DATABASE_USERNAME = 'root';
-const DATABASE_PASSWORD = 'root';
-const DATABASE_HOST = 'database';
-// {DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST} = process.env;
-/////////////
+const DATABASE_NAME = (!!process.env.DATABASE_NAME) ? String(process.env.DATABASE_NAME) : 'db';
+const DATABASE_USERNAME = (!!process.env.DATABASE_USERNAME) ? String(process.env.DATABASE_USERNAME) : 'root';
+const DATABASE_PASSWORD = (!!process.env.DATABASE_PASSWORD) ? String(process.env.DATABASE_PASSWORD) : 'root';
+const DATABASE_HOST = (!!process.env.DATABASE_HOST) ? String(process.env.DATABASE_HOST) : 'database';
 
 const connection = new Sequelize(
     DATABASE_NAME,
