@@ -36,7 +36,7 @@ const specificID = async (req: Request, res: Response) => {
 
                         if (myCache.has("filmsID")) {
                             return res.status(200).json({
-                                status: 'sucess',
+                                status: 'success',
                                 films: await myCache.get("filmsID"),
                             });
                         }
@@ -79,7 +79,7 @@ const specificID = async (req: Request, res: Response) => {
 
                         if (myCache.has("starshipsID")) {
                             return res.status(200).json({
-                                status: 'sucess',
+                                status: 'success',
                                 starships: await myCache.get("starshipsID"),
                             });
                         }
@@ -116,7 +116,7 @@ const specificID = async (req: Request, res: Response) => {
                     if (el === idReq.vehicles) {
                         if (myCache.has("vehiclesID")) {
                             return res.status(200).json({
-                                status: 'sucess',
+                                status: 'success',
                                 vehicles: await myCache.get("vehiclesID"),
                             });
                         }
@@ -153,7 +153,7 @@ const specificID = async (req: Request, res: Response) => {
                     if (el === idReq.species) {
                         if (myCache.has("speciesID")) {
                             return res.status(200).json({
-                                status: 'sucess',
+                                status: 'success',
                                 species: await myCache.get("speciesID"),
                             });
                         }
@@ -189,7 +189,7 @@ const specificID = async (req: Request, res: Response) => {
                     if (el === heroInfo.url) {
                         if (myCache.has("planetsID")) {
                             return res.status(200).json({
-                                status: 'sucess',
+                                status: 'success',
                                 planets: await myCache.get("planetsID"),
                             });
                         }
