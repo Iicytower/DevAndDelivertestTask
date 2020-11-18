@@ -2,17 +2,24 @@ import { Request, Response, } from 'express';
 import fetch from 'node-fetch';
 import { UserReq } from '../../helpers/types';
 import getUserHeroData from '../../helpers/heroInfo'
+import { myCache } from "../../helpers/cache";
+
 
 const spaces = async (req: Request, res: Response) => {
-
-    const user: UserReq = (req.user !== undefined) ? req.user : 'very secret string';
-
-    if (user === 'very secret string') return res.status(500).json({
-        status: 'failure',
-        msg: 'somthing goes wrong with /authrequired/planets endpoint',
-    });
-
     try {
+
+        const user: UserReq = (req.user !== undefined) ? req.user : res.status(500).json({
+            status: "failure",
+            msg: "there is a problem with user"
+        });
+
+        if (myCache.has("planetsKey")) {
+            return res.status(200).json({
+                status: 'succes',
+                spaces: await myCache.get("planetsKey"),
+            });
+        }
+
         const heroInfo = await getUserHeroData(user);
 
         let count: string[] = [];
@@ -37,6 +44,7 @@ const spaces = async (req: Request, res: Response) => {
             })
             .catch(err => console.error(err));
 
+        myCache.set("planetsKey", count, 86400);
         return res.status(200).json({
             status: 'succes',
             planets: count,

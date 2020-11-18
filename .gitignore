@@ -106,4 +106,8 @@ dist
 # other 
 .history/
 sessions/
+<<<<<<< HEAD
 .vscode/
+=======
+.vscode
+>>>>>>> develop

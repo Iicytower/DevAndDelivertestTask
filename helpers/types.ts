@@ -5,3 +5,12 @@ export type UserReq = {
     characterSW?: number,
     salt?: string,
 };
+
+export type specificID = {
+    resource: string,
+    films?: number,
+    starships?: number,
+    vehicles?: number,
+    species?: number,
+    planets?: number,
+}
