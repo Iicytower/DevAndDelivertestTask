@@ -5,7 +5,7 @@ import getUserHeroData from '../../helpers/heroInfo'
 import { myCache } from "../../helpers/cache";
 
 
-const spaces = async (req: Request, res: Response) => {
+const species = async (req: Request, res: Response) => {
     try {
 
         const user: UserReq = (req.user !== undefined) ? req.user : res.status(500).json({
@@ -16,7 +16,7 @@ const spaces = async (req: Request, res: Response) => {
         if (myCache.has("planetsKey")) {
             return res.status(200).json({
                 status: 'success',
-                spaces: await myCache.get("planetsKey"),
+                species: await myCache.get("planetsKey"),
             });
         }
 
@@ -59,4 +59,4 @@ const spaces = async (req: Request, res: Response) => {
     }
 }
 
-export default spaces;
+export default species;

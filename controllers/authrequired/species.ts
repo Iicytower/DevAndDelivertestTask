@@ -4,7 +4,7 @@ import { UserReq } from '../../helpers/types';
 import getUserHeroData from '../../helpers/heroInfo';
 import { myCache } from "../../helpers/cache";
 
-const spaces = async (req: Request, res: Response) => {
+const species = async (req: Request, res: Response) => {
 
     try {
         const user: UserReq = (req.user !== undefined) ? req.user : res.status(500).json({
@@ -12,10 +12,10 @@ const spaces = async (req: Request, res: Response) => {
             msg: "there is a problem with user"
         });
 
-        if (myCache.has("spacesKey")) {
+        if (myCache.has("speciesKey")) {
             return res.status(200).json({
                 status: 'success',
-                spaces: await myCache.get("spacesKey"),
+                species: await myCache.get("speciesKey"),
             });
         }
 
@@ -34,19 +34,19 @@ const spaces = async (req: Request, res: Response) => {
                 .catch(err => console.error(err));
         }
         
-        myCache.set("spacesKey", count, 86400);
+        myCache.set("speciesKey", count, 86400);
         return res.status(200).json({
             status: 'success',
-            spaces: count,
+            species: count,
         });
 
     } catch (err) {
         console.error(err);
         return res.status(500).json({
             status: `failure`,
-            msg: "somthing goes wrong with spaces"
+            msg: "somthing goes wrong with species"
         });
     }
 }
 
-export default spaces;
+export default species;

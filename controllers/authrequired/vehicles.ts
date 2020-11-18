@@ -17,7 +17,7 @@ const vehicles = async (req: Request, res: Response) => {
         if (myCache.has("vehiclesKey")) {
             return res.status(200).json({
                 status: 'success',
-                spaces: await myCache.get("vehiclesKey"),
+                species: await myCache.get("vehiclesKey"),
             });
         }
 
