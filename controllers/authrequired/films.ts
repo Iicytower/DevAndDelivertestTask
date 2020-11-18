@@ -15,8 +15,8 @@ const films = async (req: Request, res: Response) => {
     
         if (myCache.has("filmsKey")) {
             return res.status(200).json({
-                status: 'succes',
-                spaces: await myCache.get("filmsKey"),
+                status: 'success',
+                films: await myCache.get("filmsKey"),
             });
         }
 
@@ -38,8 +38,8 @@ const films = async (req: Request, res: Response) => {
         myCache.set("filmsKey", count, 86400);
 
         return res.status(200).json({
-            status: 'succes',
-            spaces: count,
+            status: 'success',
+            films: count,
         });
 
     } catch (err) {

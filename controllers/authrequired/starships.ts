@@ -15,7 +15,7 @@ const starships = async (req: Request, res: Response) => {
 
         if (myCache.has("starshipsKey")) {
             return res.status(200).json({
-                status: 'succes',
+                status: 'success,
                 spaces: await myCache.get("starshipsKey"),
             });
         }
@@ -37,7 +37,7 @@ const starships = async (req: Request, res: Response) => {
 
         myCache.set("starshipsKey", count, 86400);
         return res.status(200).json({
-            status: 'succes',
+            status: 'success,
             spaces: count,
         });
     } catch (err) {

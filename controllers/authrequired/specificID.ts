@@ -22,6 +22,9 @@ const specificID = async (req: Request, res: Response) => {
         const id: number[] = []
         switch (idReq.resource) {
             case 'films':
+
+
+
                 heroInfo.films.forEach((el: string) => {
                     const heroFilmsID = el.split('/');
                     id.push(parseInt(heroFilmsID[heroFilmsID.length - 2]));
@@ -31,6 +34,13 @@ const specificID = async (req: Request, res: Response) => {
                     const el = id[i];
                     if (el === idReq.films) {
 
+                        if (myCache.has("filmsID")) {
+                            return res.status(200).json({
+                                status: 'success',
+                                films: await myCache.get("filmsID"),
+                            });
+                        }
+
                         await fetch(`https://swapi.dev/api/films/${idReq.films}/`)
                             .then(res => res.json())
                             .then(data => {
@@ -39,6 +49,7 @@ const specificID = async (req: Request, res: Response) => {
                             })
                             .catch(err => console.error(err));
 
+                        myCache.set("filmsID", count, 86400);
                         return res.status(200).json({
                             status: `success`,
                             films: count,
@@ -55,6 +66,8 @@ const specificID = async (req: Request, res: Response) => {
                 break;
             case 'starships':
 
+
+
                 heroInfo.starships.forEach((el: string) => {
                     const heroFilmsID = el.split('/');
                     id.push(parseInt(heroFilmsID[heroFilmsID.length - 2]));
@@ -64,6 +77,12 @@ const specificID = async (req: Request, res: Response) => {
                     const el = id[i];
                     if (el === idReq.starships) {
 
+                        if (myCache.has("starshipsID")) {
+                            return res.status(200).json({
+                                status: 'success',
+                                starships: await myCache.get("starshipsID"),
+                            });
+                        }
                         await fetch(`https://swapi.dev/api/starships/${idReq.starships}/`)
                             .then(res => res.json())
                             .then(data => {
@@ -72,6 +91,7 @@ const specificID = async (req: Request, res: Response) => {
                             })
                             .catch(err => console.error(err));
 
+                        myCache.set("starshipsID", count, 86400);
                         return res.status(200).json({
                             status: `success`,
                             starships: count,
@@ -94,7 +114,12 @@ const specificID = async (req: Request, res: Response) => {
                 for (let i = 0; i < id.length; i++) {
                     const el = id[i];
                     if (el === idReq.vehicles) {
-
+                        if (myCache.has("vehiclesID")) {
+                            return res.status(200).json({
+                                status: 'success',
+                                vehicles: await myCache.get("vehiclesID"),
+                            });
+                        }
                         await fetch(`https://swapi.dev/api/vehicles/${idReq.vehicles}/`)
                             .then(res => res.json())
                             .then(data => {
@@ -103,6 +128,7 @@ const specificID = async (req: Request, res: Response) => {
                             })
                             .catch(err => console.error(err));
 
+                        myCache.set("vehiclesID", count, 86400);
                         return res.status(200).json({
                             status: `success`,
                             vehicles: count,
@@ -125,7 +151,12 @@ const specificID = async (req: Request, res: Response) => {
                 for (let i = 0; i < id.length; i++) {
                     const el = id[i];
                     if (el === idReq.species) {
-
+                        if (myCache.has("speciesID")) {
+                            return res.status(200).json({
+                                status: 'success',
+                                species: await myCache.get("speciesID"),
+                            });
+                        }
                         await fetch(`https://swapi.dev/api/species/${idReq.species}/`)
                             .then(res => res.json())
                             .then(data => {
@@ -134,12 +165,12 @@ const specificID = async (req: Request, res: Response) => {
                             })
                             .catch(err => console.error(err));
 
+                        myCache.set("speciesID", count, 86400);
                         return res.status(200).json({
                             status: `success`,
                             species: count,
                         });
                     }
-
                 }
 
                 return res.status(200).json({
@@ -156,6 +187,14 @@ const specificID = async (req: Request, res: Response) => {
                 for (let i = 0; i < planetData.residents.length; i++) {
                     const el = planetData.residents[i];
                     if (el === heroInfo.url) {
+                        if (myCache.has("planetsID")) {
+                            return res.status(200).json({
+                                status: 'success',
+                                planets: await myCache.get("planetsID"),
+                            });
+                        }
+
+                        myCache.set("planetsID", planetData.name, 86400);
                         return res.status(200).json({
                             status: `success`,
                             planets: planetData.name,
